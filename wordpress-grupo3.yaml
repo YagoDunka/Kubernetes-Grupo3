@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: blog-grupo3
+  namespace: labwordpress
+  labels:
+    app: blog-grupo3
+spec:
+  containers:
+    - name: blog-grupo3-container
+      image: wordpress
+      ports:
+        - containerPort: 80
+      envFrom:
+        - configMapRef:
+            name: blog-configmap
