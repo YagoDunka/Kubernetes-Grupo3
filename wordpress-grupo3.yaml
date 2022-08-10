@@ -6,11 +6,36 @@ metadata:
   labels:
     app: blog-grupo3
 spec:
-  containers:
-    - name: blog-grupo3-container
-      image: wordpress
-      ports:
+  selector:
+    matchLabels:
+      app: wordpress
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: wordpress
+        tier: frontend
+    spec:
+      containers:
+      - image: wordpress:6.0-apache
+        name: wordpress
+        env:
+        - name: host-wp
+          value: wordpress-mysql:3308
+        - name: wp-passwd
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: password
+        ports:
         - containerPort: 80
-      envFrom:
-        - configMapRef:
-            name: blog-configmap
+          name: wordpress
+        volumeMounts:
+        - name: wordpresspersistent-storage-lab
+          mountPath: \var\www\html
+      volumes:
+      - name: wordpresspersistent-storage-lab
+        persistentVolumeClaim:
+          claimName: wp-pv-claim
