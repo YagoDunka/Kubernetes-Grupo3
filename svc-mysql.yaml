@@ -4,8 +4,9 @@ metadata:
   name: svc-db-blog
   namespace: labwordpress
 spec:
-  type: ClusterIP
   ports:
     - port: 3308
   selector:
-    app: db-blog
+    app: wordpress
+    tier: mysql
+  clusterIP: None
