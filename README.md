@@ -42,7 +42,7 @@ Wordpress - MySQL
 
 1º Utilizamos o comando `kubectl create namespace labwordpress`;
 
-2º Se for para configurar que todos os comandos kubectl salve pernametemente no namespace pode utlizar o comando `kubectl config set-context --current --namespace=labwordpress`
+2º Ao criar um arquivo .yaml, defina o namespace no metadata ou especifique no apply, adicionando –namespace=labwordpress junto ao comando.
 	
 ## Fazendo o apply do arquivo de service do MYSQL na porta 3308:
 	
